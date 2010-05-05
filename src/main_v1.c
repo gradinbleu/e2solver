@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
    /* print data structures */
    //output_tiles(&e2);
-   output_board_ext(&e2);
+   output_board_file(&e2, "/dev/stdout");
  
 
    int merror;
@@ -83,14 +83,14 @@ int main(int argc, char *argv[])
       printf("swap (%d,%d) - (%d,%d)r%d\n", 
          x, y, x_result, y_result, rot_result);
  
-      output_board_ext(&e2);
+   	output_board_file(&e2, "/dev/stdout");
       printf("------------------------------------------------------------\n");
    }
    
    printf("------------------------------------------------------------\n");
    printf("Solved: \n");
    printf("------------------------------------------------------------\n");
-   output_board_ext(&e2);
+   output_board_file(&e2, "/dev/stdout");
 
 
   

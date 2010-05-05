@@ -18,11 +18,15 @@ void output_board(e2_t *e2)
 }
 // }}}
 
-// {{{ output_board_ext()
-void output_board_ext(e2_t *e2)
+// {{{ output_board_file()
+void output_board_file(e2_t *e2, const char* file)
 {
    int x;
    int y;
+
+	FILE *f = fopen(file, "w+");
+	if(!f)
+		return;
 
    for(y=0; y<e2->side; y++)
    {
@@ -31,40 +35,46 @@ void output_board_ext(e2_t *e2)
          int id = board_get(e2, x, y);
          
          if(!match_top(e2, x, y))
-            printf(" / \e[31;1m%.2d\e[m \\   ", e2->tiles[id].top);
+            fprintf(f, "  / \e[31;1m%.3d\e[m \\    ", e2->tiles[id].top);
          else
-            printf(" / %.2d \\   ", e2->tiles[id].top);
+            fprintf(f, "  / %.3d \\    ", e2->tiles[id].top);
       }
-      printf("\n");
+      fprintf(f, "\n");
 
       for(x=0; x<e2->side; x++)
       {
          int id = board_get(e2, x, y);
 
          if(!match_left(e2, x, y))
-            printf("\e[31;1m%.2d\e[m", e2->tiles[id].left);
+            fprintf(f, "\e[31;1m%.3d\e[m", e2->tiles[id].left);
          else
-            printf("%.2d", e2->tiles[id].left);
+            fprintf(f, "%.3d", e2->tiles[id].left);
 
-         printf(" \e[33;1m%.2d\e[m ", id);
+			if(id==139)
+         	fprintf(f, " \e[34;1m%.3d\e[m ", id);
+			else
+         	fprintf(f, " \e[33;1m%.3d\e[m ", id);
 
          if(!match_right(e2, x, y))
-            printf("\e[31;1m%.2d\e[m  ", e2->tiles[id].right);
+            fprintf(f, "\e[31;1m%.3d\e[m  ", e2->tiles[id].right);
          else
-            printf("%.2d  ", e2->tiles[id].right);
+            fprintf(f, "%.3d  ", e2->tiles[id].right);
       }
-      printf("\n");
+      fprintf(f, "\n");
 
       for(x=0; x<e2->side; x++)
       {
          int id = board_get(e2, x, y);
          if(!match_bottom(e2, x, y))
-            printf(" \\ \e[31;1m%.2d\e[m /   ", e2->tiles[id].bottom);
+            fprintf(f, "  \\ \e[31;1m%.3d\e[m /    ", e2->tiles[id].bottom);
          else
-            printf(" \\ %.2d /   ", e2->tiles[id].bottom);
+            fprintf(f, "  \\ %.3d /    ", e2->tiles[id].bottom);
       }
-      printf("\n");
+      fprintf(f, "\n");
    }
+   fprintf(f, "\n");
+   fprintf(f, "\n");
+	fclose(f);
 }
 // }}}
 

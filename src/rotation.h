@@ -6,7 +6,6 @@
 #ifndef __ROTATION_H__
 #define __ROTATION_H__
 
-
 // {{{ rotation_left()
 void rotation_left(e2_t *e2, int x, int y)
 {
@@ -34,6 +33,16 @@ void rotation_right(e2_t *e2, int x, int y)
 // {{{ rotation_auto()
 void rotation_auto(e2_t *e2, int x, int y)
 {
+	// force 139(2) to (7,8) 
+	if(e2->ntiles == 256)
+	{
+		if(x==7 && y==8)
+			return;
+	}
+
+
+
+
    // TODO: dar mas importancia a los laterales y esquinas
 
    int nerrors=4;
@@ -93,6 +102,7 @@ void rotation_auto(e2_t *e2, int x, int y)
 }
 // }}}
 
-
 #endif
+
+
 

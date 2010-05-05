@@ -14,6 +14,8 @@ typedef struct
    int right;
    int bottom;
    int left;
+	int x;
+	int y;
 }
 tile_t;
 
