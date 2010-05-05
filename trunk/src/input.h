@@ -56,6 +56,12 @@ void input_read_tiles(e2_t *e2, const char *input_file)
       count++;
    }
 
+	e2->tiles[0].id=0;
+	e2->tiles[count].top=0;
+	e2->tiles[count].left=0; 
+	e2->tiles[count].bottom=0; 
+	e2->tiles[count].right=0;
+
    fclose(f);
 }
 // }}}
